@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Монітор ризику CFD</title>
+  <link rel="stylesheet" href="assets/dashboard.css">
+  <script src="assets/plotly.min.js" defer></script>
+  <script src="assets/charts.js" defer></script>
+  <script src="assets/dashboard.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>Монітор ризику CFD</strong>
+        <span>Внутрішня аналітика торгової стратегії</span>
+      </div>
+      <nav aria-label="Навігація дашборду">
+        <a href="#overview">Огляд</a>
+        <a href="#performance">Результативність</a>
+        <a href="#risk-strategy">Ризики й стратегія</a>
+        <a href="#methodology">Методика</a>
+      </nav>
+    </aside>
+    <main>
+      <section id="overview">
+        <header class="topbar">
+          <div>
+            <h1>Оцінка торгового ризику CFD-стратегії</h1>
+            <p class="subtitle">1 335 закритих угод за період 2023-09-29 - 2023-11-01 (22 торгові дні). Основний інструмент: XAUUSD.s (99.85% угод).</p>
+          </div>
+        </header>
+        <div class="kpi-grid">
+          
+            <article class="kpi-card tone-gain">
+              <span class="kpi-label">Чистий P&amp;L</span>
+              <strong class="kpi-value">+6 430.10</strong>
+              <span class="kpi-note">Expectancy/угода: +4.82</span>
+            </article>
+            
+
+            <article class="kpi-card tone-teal">
+              <span class="kpi-label">Частка прибуткових</span>
+              <strong class="kpi-value">66.52%</strong>
+              <span class="kpi-note">Прибуткові закриті угоди</span>
+            </article>
+            
+
+            <article class="kpi-card tone-green">
+              <span class="kpi-label">Фактор прибутку</span>
+              <strong class="kpi-value">3.90</strong>
+              <span class="kpi-note">Валовий прибуток / збиток</span>
+            </article>
+            
+
+            <article class="kpi-card tone-loss">
+              <span class="kpi-label">Макс. просадка</span>
+              <strong class="kpi-value">-752.05</strong>
+              <span class="kpi-note">Realized P&amp;L, не equity</span>
+            </article>
+            
+
+            <article class="kpi-card tone-amber">
+              <span class="kpi-label">Stop Loss</span>
+              <strong class="kpi-value">9.59%</strong>
+              <span class="kpi-note">Частка угод із SL</span>
+            </article>
+            
+
+            <article class="kpi-card tone-blue">
+              <span class="kpi-label">Пік валової експозиції</span>
+              <strong class="kpi-value">21.55 lot</strong>
+              <span class="kpi-note">28 позицій</span>
+            </article>
+            
+        </div>
+        <div class="overview-grid">
+          <div class="chart-card"><div class="chart-header"><span>Кумулятивний реалізований P&amp;L</span></div><div class="chart-body"><div id="chart-cumulative-pnl" class="chart-plot chart-h-300"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Валова та чиста експозиція</span><small>Денні піки без event-level часової шкали</small></div><div class="chart-body"><div id="chart-exposure" class="chart-plot chart-h-300"></div></div></div>
+          <div class="risk-stack">
+      <article class="insight-card executive-card tone-blue">
+        <h3>3 ключові висновки</h3>
+        <ol><li><strong>Прибуток реалізований, але не equity-підтверджений.</strong><span>Просадка показує лише закриті угоди; відкритий P&amp;L у даних відсутній.</span></li>
+<li><strong>Ризик кошика суттєвий.</strong><span>Пік валової експозиції: 21.55 lot при 28 позиціях; пік кількості позицій: 125.</span></li>
+<li><strong>Averaging down є ключовим сигналом.</strong><span>1 031 із 1 177 додавань (87.6%).</span></li></ol>
+      </article>
+      <article class="insight-card tone-loss">
+        <h3>Перспектива</h3>
+        <p>За місячною вибіркою стратегія виглядає умовно життєздатною лише за наявності відкатів і контрольованої волатильності. Трендовий рух проти кошика або маржинальний стрес можуть швидко змінити профіль ризику. Для остаточного висновку потрібні equity-дані та відкритий P&amp;L.</p>
+      </article>
+    </div>
+        </div>
+      </section>
+
+      <section id="performance">
+        <div class="section-heading">
+          <div>
+            <h2>Аналіз результативності</h2>
+            <p class="section-note">Денна прибутковість, форма розподілу угод і розріз за інструментом та напрямком.</p>
+          </div>
+        </div>
+        <div class="analysis-grid">
+          <div class="chart-card"><div class="chart-header"><span>Денний P&amp;L</span></div><div class="chart-body"><div id="chart-daily-pnl" class="chart-plot chart-h-265"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Розподіл прибутку та збитку</span></div><div class="chart-body"><div id="chart-pnl-distribution" class="chart-plot chart-h-265"></div></div></div>
+          
+    <div class="table-card">
+      <div class="panel-header">
+        <span>Розріз результативності</span>
+        <small>за інструментом і напрямком</small>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Інструмент</th>
+              <th>Напрямок</th>
+              <th>Угод</th>
+              <th>Чистий P&L</th>
+              <th>Частка прибуткових</th>
+              <th>Lot</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>XAUUSD.s</td>
+              <td>Купівля</td>
+              <td>672</td>
+              <td class="positive">3 732.61</td>
+              <td>65.48%</td>
+              <td>87.84</td>
+            </tr>
+            
+            <tr>
+              <td>XAUUSD.s</td>
+              <td>Продаж</td>
+              <td>661</td>
+              <td class="positive">2 681.97</td>
+              <td>67.47%</td>
+              <td>79.21</td>
+            </tr>
+            
+            <tr>
+              <td>GBPAUD.s</td>
+              <td>Продаж</td>
+              <td>1</td>
+              <td class="positive">15.27</td>
+              <td>100.00%</td>
+              <td>0.51</td>
+            </tr>
+            
+            <tr>
+              <td>GBPUSD.s</td>
+              <td>Купівля</td>
+              <td>1</td>
+              <td class="positive">0.25</td>
+              <td>100.00%</td>
+              <td>0.01</td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    
+          <div class="chart-card"><div class="chart-header"><span>Концентрація обсягу за інструментами</span></div><div class="chart-body"><div id="chart-volume-concentration" class="chart-plot chart-h-250"></div></div></div>
+        </div>
+      </section>
+
+      <section id="risk-strategy">
+        <div class="section-heading">
+          <div>
+            <h2>Ризики та стратегія</h2>
+            <p class="section-note">SL/TP дисципліна, одночасні позиції, ознаки grid/averaging down і гіпотетичні сценарні оцінки.</p>
+          </div>
+        </div>
+        <div class="analysis-grid">
+          <div class="chart-card"><div class="chart-header"><span>Використання Stop Loss / Take Profit</span></div><div class="chart-body"><div id="chart-stop-take" class="chart-plot chart-h-250"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Одночасно відкриті позиції</span><small>Денний пік активних позицій</small></div><div class="chart-body"><div id="chart-concurrency" class="chart-plot chart-h-250"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Ознаки торгової поведінки</span><small>Відсотки мають різні бази розрахунку</small></div><div class="chart-body"><div id="chart-strategy-signals" class="chart-plot chart-h-270"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Патерни набору позицій за днями</span></div><div class="chart-body"><div id="chart-position-patterns" class="chart-plot chart-h-270"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Гіпотетичний сценарний P&amp;L: рух XAUUSD.s на 10 USD</span></div><div class="chart-body"><div id="chart-directional-stress" class="chart-plot chart-h-285"></div></div></div>
+          <div class="chart-card"><div class="chart-header"><span>Гіпотетичний стрес пікових односпрямованих кошиків</span></div><div class="chart-body"><div id="chart-same-side-stress" class="chart-plot chart-h-285"></div></div></div>
+        </div>
+      </section>
+
+      <section id="methodology">
+        <div class="section-heading">
+          <div>
+            <h2>Методика та обмеження</h2>
+            <p class="section-note">Пояснення розрахунків, припущень, обмежень даних і фінальний аналітичний висновок.</p>
+          </div>
+        </div>
+        
+    <div class="methodology-grid">
+      <article class="text-panel">
+        <h3>Короткий висновок</h3>
+        <p>
+          Аналіз охоплює приблизно один місяць: 22 торгові дні. Стратегія історично прибуткова
+          за закритими угодами, але це не доводить її довгострокову стійкість.
+        </p>
+        <p>
+          Ключові обмеження: відсутність equity-кривої, високий рівень угод без Stop Loss
+          і частий averaging down.
+        </p>
+        <p class="emphasis">Прогноз: працездатність умовна і залежить від відкатів, волатильності та достатньої маржі.</p>
+      </article>
+      <article class="text-panel">
+        <h3>Сценарні припущення</h3>
+        <div class="assumption-highlight">
+          <span>Оцінений мультиплікатор</span>
+          <strong>≈ 100.00 USD</strong>
+          <small>за рух XAUUSD.s на 1 USD при 1 lot</small>
+        </div>
+        <p>Сценарії показують оцінений гіпотетичний P&L, а не фактичні збитки, Stop Out або ймовірність ліквідації.</p>
+        <p>Розрахунок спирається на історичні exposure-snapshot-и та емпірично оцінений XAUUSD-мультиплікатор.</p>
+      </article>
+      <article class="text-panel wide-panel">
+        <details open>
+          <summary>Методика розрахунку сценарного мультиплікатора</summary>
+          <div class="formula-block">
+            <div class="math-line">
+              <span>Мультиплікатор</span>
+              <span>= медіана</span>
+              <span class="fraction">
+                <span>|Прибуток<sub>i</sub>|</span>
+                <span>Обсяг<sub>i</sub> × |Ціна закриття<sub>i</sub> − Ціна відкриття<sub>i</sub>|</span>
+              </span>
+            </div>
+            <p>
+              Для кожної історичної угоди з ненульовим рухом ціни обчислюється P&L на 1 lot і 1 USD руху ціни.
+              У сценаріях використовується медіана цих значень, щоб зменшити вплив викидів.
+              Це не офіційна специфікація контракту брокера.
+            </p>
+            <p>
+              Equity, Margin Used, leverage, правила Stop Out, execution costs і slippage не доступні
+              або не повністю змодельовані, тому ліквідаційні ймовірності не розраховуються.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Методика averaging down</summary>
+          <p>
+            Додаванням вважається угода, відкрита за наявності активного кошика в тому самому інструменті та напрямку.
+            Купівля нижче середньозваженої ціни кошика або продаж вище неї позначається як averaging down.
+          </p>
+          <p class="emphasis">
+            1 031 із 1 177
+            додавань мають таку ознаку (87.6%).
+          </p>
+        </details>
+        <details>
+          <summary>Доведені факти та ключові ризики</summary>
+          <div class="details-grid">
+            <div>
+              <h4>Факти</h4>
+              <ul><li>Переважна більшість угод припадає на XAUUSD.s: 99.85% вибірки.</li>
+<li>Усього закритих угод: 1335.</li>
+<li>Частка прибуткових угод за всіма закритими угодами: 66.52%.</li>
+<li>Profit Factor: 3.90.</li>
+<li>Максимальна просадка за реалізованим P&amp;L: -752.05.</li>
+<li>Угод без Stop Loss: 1207 із 1335.</li>
+<li>Максимальна кількість одночасно відкритих позицій: 125.</li>
+<li>Додавання позицій у тому самому інструменті й напрямку під час уже відкритого кошика: 1177 випадків.</li>
+<li>Averaging down серед таких додавань: 1031 із 1177 (87.60%).</li></ul>
+            </div>
+            <div>
+              <h4>Ризики</h4>
+              <ul><li>Фактична Equity Drawdown може бути суттєво більшою за просадку кривої закритих угод.</li>
+<li>Відсутність Stop Loss підвищує ризик великих втрат під час різких рухів або розширення спреду.</li>
+<li>Концентрація на одному інструменті робить результат чутливим до режиму волатильності саме цього ринку.</li>
+<li>Набір односпрямованих позицій може швидко збільшувати експозицію під час тренду проти кошика.</li>
+<li>Валова експозиція створює маржинальне та операційне навантаження навіть тоді, коли чиста експозиція частково компенсована купівлями і продажами.</li></ul>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Повний аналітичний висновок</summary>
+          <p>Майбутня життєздатність стратегії виглядає умовною, а не доведеною. За наданою історією вона працювала в режимі, де відкатів вистачало для закриття кошиків із прибутком. Водночас висока частка угод без Stop Loss, частий averaging down і періоди великої одночасної експозиції означають, що стратегія вразлива до затяжного спрямованого руху, розривів ліквідності та маржинального стресу. Без equity-даних, відкритого P&amp;L, рівня маржі і ширшої історії не можна стверджувати, що позитивний реалізований P&amp;L є стійкою перевагою, а не наслідком сприятливого режиму вибірки.</p>
+          <p>Realized P&amp;L Drawdown дорівнює -752.05. Це просадка кривої закритих угод; реальна Equity Drawdown могла бути більшою, оскільки вхідні дані не містять повної кривої equity та плаваючого P&amp;L відкритих позицій.</p>
+        </details>
+      </article>
+    </div>
+    
+      </section>
+    </main>
+  </div>
+</body>
+</html>
